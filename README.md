@@ -39,5 +39,6 @@ Deploy on Cloudflare Pages with:
 - Build command: `npm run build`
 - Output directory: `dist`
 - Pages project name: `aurummi-diamant`
+- Deploy command: leave empty for Git-connected Pages deployments
 
 Full deployment notes live in `../docs/deployment-cloudflare-pages.md`.
