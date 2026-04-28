@@ -1,43 +1,43 @@
-# Astro Starter Kit: Minimal
+# Verdant Velocity
 
-```sh
-npm create astro@latest -- --template minimal
-```
+Astro 6 static site for Aurummi Phase 1: a German-market SEO site for lab-grown diamonds, with German pillar/cluster content, a B2B wholesale inquiry page, and standalone English SEO pages.
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+## Project Context
 
-## 🚀 Project Structure
+- Specification: `../docs/superpowers/specs/2026-04-27-aurummi-lab-diamond-site-design.md`
+- Implementation plan: `../docs/superpowers/plans/2026-04-27-aurummi-phase1.md`
+- Codex guidance: `../AGENTS.md` and `AGENTS.md`
+- Astro skill: `../.agents/skills/astro-framework`
 
-Inside of your Astro project, you'll see the following folders and files:
+The `docs/superpowers/` directory name is historical from the Claude Code migration. The files remain the active project spec and plan.
 
-```text
-/
-├── public/
-├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
-```
+## Commands
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+Run these from this directory:
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+| Command | Action |
+| :-- | :-- |
+| `npm install` | Install dependencies |
+| `npm run dev` | Start local dev server |
+| `npm run build` | Build the static site to `dist/` |
+| `npm run preview` | Preview the built output |
+| `npm run astro -- --help` | Show Astro CLI help |
 
-Any static assets, like images, can be placed in the `public/` directory.
+## Phase 1 Notes
 
-## 🧞 Commands
+- Keep the site static for Cloudflare Pages.
+- Use MDX content collections for articles and product placeholders.
+- Use Tailwind CSS v4 through `@tailwindcss/vite`.
+- Centralize SEO tags and JSON-LD in shared Astro components.
+- Do not add e-commerce, authentication, a CMS backend, analytics, or a full i18n setup in Phase 1.
 
-All commands are run from the root of the project, from a terminal:
+## Deployment
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
+Deploy on Cloudflare Pages with:
 
-## 👀 Want to learn more?
+- Project root: `verdant-velocity`
+- Build command: `npm run build`
+- Output directory: `dist`
+- Pages project name: `aurummi-diamant`
 
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+Full deployment notes live in `../docs/deployment-cloudflare-pages.md`.

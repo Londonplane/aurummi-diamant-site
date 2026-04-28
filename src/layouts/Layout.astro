@@ -1,0 +1,125 @@
+---
+import '../styles/global.css';
+import JsonLd from '../components/JsonLd.astro';
+import SEOHead from '../components/SEOHead.astro';
+
+interface Alternate {
+  hreflang: string;
+  href: string;
+}
+
+interface BreadcrumbItem {
+  name: string;
+  item: string;
+}
+
+interface FAQ {
+  question: string;
+  answer: string;
+}
+
+interface Step {
+  name: string;
+  text: string;
+}
+
+interface Props {
+  title: string;
+  description: string;
+  canonicalURL: string;
+  ogType?: 'website' | 'article';
+  ogLocale?: string;
+  noindex?: boolean;
+  alternates?: Alternate[];
+  schema?: 'article' | 'faq' | 'howto';
+  publishDate?: Date;
+  updatedDate?: Date;
+  faqs?: FAQ[];
+  steps?: Step[];
+  breadcrumbs?: BreadcrumbItem[];
+}
+
+const {
+  title,
+  description,
+  canonicalURL,
+  ogType = 'website',
+  ogLocale = 'de_DE',
+  noindex = false,
+  alternates = [],
+  schema,
+  publishDate,
+  updatedDate,
+  faqs,
+  steps,
+  breadcrumbs = [{ name: 'Startseite', item: new URL('/', Astro.site).toString() }],
+} = Astro.props;
+
+const currentYear = new Date().getFullYear();
+const lang = ogLocale === 'en_US' ? 'en' : 'de';
+const inLanguage = lang === 'en' ? 'en' : 'de-DE';
+---
+
+<!doctype html>
+<html lang={lang}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" href="/favicon.ico" />
+    <meta name="generator" content={Astro.generator} />
+    <SEOHead
+      title={title}
+      description={description}
+      canonicalURL={canonicalURL}
+      ogType={ogType}
+      ogLocale={ogLocale}
+      noindex={noindex}
+      alternates={alternates}
+    />
+    <JsonLd
+      schema={schema}
+      title={title}
+      description={description}
+      publishDate={publishDate}
+      updatedDate={updatedDate}
+      faqs={faqs}
+      steps={steps}
+      breadcrumbs={breadcrumbs}
+      inLanguage={inLanguage}
+    />
+  </head>
+  <body class="flex min-h-screen flex-col bg-white text-gray-900 antialiased">
+    <header class="border-b border-gray-200 bg-white/95">
+      <nav class="mx-auto flex max-w-6xl flex-col items-start gap-3 px-4 py-4 sm:flex-row sm:items-center sm:gap-5 sm:px-6" aria-label="Hauptnavigation">
+        <a href="/" class="flex items-center gap-2 text-lg font-semibold tracking-wide text-gray-950">
+          <img src="/favicon.svg" alt="" class="h-6 w-6" />
+          <span>Aurummi</span>
+        </a>
+        <div class="flex w-full flex-wrap items-center gap-x-5 gap-y-2 text-sm text-gray-600 sm:flex-1">
+          <a href="/labordiamanten/" class="hover:text-gold-600">Labordiamanten</a>
+          <a href="/labordiamanten-grosshandel/" class="hover:text-gold-600">Großhandel</a>
+          <a href="/ueber-uns/" class="hover:text-gold-600">Über uns</a>
+        </div>
+        <a
+          href="#newsletter"
+          class="hidden border border-gray-900 px-3 py-2 text-sm font-medium text-gray-900 transition-colors hover:bg-gray-900 hover:text-white sm:inline-flex"
+        >
+          Newsletter
+        </a>
+      </nav>
+    </header>
+
+    <main class="flex-1">
+      <slot />
+    </main>
+
+    <footer class="mt-20 border-t border-gray-200">
+      <div class="mx-auto flex max-w-6xl flex-wrap items-center gap-4 px-4 py-8 text-sm text-gray-500 sm:px-6">
+        <a href="/impressum/" class="hover:text-gray-900">Impressum</a>
+        <a href="/datenschutz/" class="hover:text-gray-900">Datenschutz</a>
+        <span class="ml-auto">© {currentYear} Aurummi</span>
+      </div>
+    </footer>
+  </body>
+</html>

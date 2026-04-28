@@ -1,0 +1,37 @@
+---
+import { getCollection, render } from 'astro:content';
+import Layout from '../layouts/Layout.astro';
+
+export async function getStaticPaths() {
+  const products = await getCollection('produkte');
+
+  return products.map((entry) => ({
+    params: { slug: entry.id },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+const canonicalURL = new URL(`/${entry.id}/`, Astro.site).toString();
+---
+
+<Layout
+  title={entry.data.title}
+  description={entry.data.description}
+  canonicalURL={canonicalURL}
+  noindex={entry.data.noindex}
+  schema="article"
+  breadcrumbs={[
+    { name: 'Startseite', item: new URL('/', Astro.site).toString() },
+    { name: entry.data.title, item: canonicalURL },
+  ]}
+>
+  <article class="mx-auto max-w-3xl px-4 py-12 sm:px-6">
+    <p class="text-sm font-semibold uppercase tracking-[0.2em] text-gold-600">Vorschau</p>
+    <h1 class="mt-3 break-words text-3xl font-bold leading-tight text-gray-950 sm:text-4xl">{entry.data.title}</h1>
+    <div class="content-flow mt-8">
+      <Content />
+    </div>
+  </article>
+</Layout>

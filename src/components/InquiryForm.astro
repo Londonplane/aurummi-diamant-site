@@ -1,0 +1,49 @@
+<form action="#" method="post" class="max-w-xl space-y-5">
+  <div>
+    <label for="name" class="mb-1 block text-sm font-medium text-gray-700">Name *</label>
+    <input
+      id="name"
+      type="text"
+      name="name"
+      required
+      class="w-full border border-gray-300 px-4 py-3 outline-none focus:border-gold-500"
+    />
+  </div>
+  <div>
+    <label for="company" class="mb-1 block text-sm font-medium text-gray-700">Unternehmen</label>
+    <input
+      id="company"
+      type="text"
+      name="company"
+      class="w-full border border-gray-300 px-4 py-3 outline-none focus:border-gold-500"
+    />
+  </div>
+  <div>
+    <label for="email" class="mb-1 block text-sm font-medium text-gray-700">E-Mail *</label>
+    <input
+      id="email"
+      type="email"
+      name="email"
+      required
+      class="w-full border border-gray-300 px-4 py-3 outline-none focus:border-gold-500"
+    />
+  </div>
+  <div>
+    <label for="message" class="mb-1 block text-sm font-medium text-gray-700">Ihre Anfrage *</label>
+    <textarea
+      id="message"
+      name="message"
+      required
+      rows="5"
+      placeholder="Gewünschte Steinart, Karat, Anzahl, Zertifikat..."
+      class="w-full border border-gray-300 px-4 py-3 outline-none focus:border-gold-500"
+    ></textarea>
+  </div>
+  <button type="submit" class="w-full bg-gold-500 px-5 py-3 font-semibold text-gray-950 transition-colors hover:bg-amber-300">
+    Anfrage senden
+  </button>
+  <p class="text-xs leading-6 text-gray-500">
+    * Pflichtfelder. Mit dem Absenden stimmen Sie unserer
+    <a href="/datenschutz/" class="underline">Datenschutzerklärung</a> zu.
+  </p>
+</form>

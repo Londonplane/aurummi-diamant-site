@@ -1,0 +1,31 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const canonicalURL = new URL('/ueber-uns/', Astro.site).toString();
+---
+
+<Layout
+  title="Über uns: Aurummi"
+  description="Aurummi ist ein in Deutschland ansässiger Anbieter für IGI-zertifizierte Labordiamanten mit direktem Zugang zur Produktion."
+  canonicalURL={canonicalURL}
+  schema="article"
+  breadcrumbs={[
+    { name: 'Startseite', item: new URL('/', Astro.site).toString() },
+    { name: 'Über uns', item: canonicalURL },
+  ]}
+>
+  <article class="mx-auto max-w-3xl px-4 py-12 sm:px-6">
+    <p class="text-sm font-semibold uppercase tracking-[0.2em] text-gold-600">Aurummi</p>
+    <h1 class="mt-3 break-words text-3xl font-bold leading-tight text-gray-950 sm:text-4xl">Über Aurummi</h1>
+    <div class="content-flow mt-8">
+      <p>
+        Aurummi wurde gegründet, um deutschen Käuferinnen, Käufern und Händlern den Zugang zu hochwertigen
+        Labordiamanten transparenter zu machen.
+      </p>
+      <p>
+        Der Fokus liegt auf IGI-zertifizierten CVD- und HPHT-Steinen, klar erklärten Qualitätsdaten und einem
+        Beschaffungsmodell, das europäische Marktkenntnis mit direktem Zugang zur chinesischen Supply Chain verbindet.
+      </p>
+    </div>
+  </article>
+</Layout>

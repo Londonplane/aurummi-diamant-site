@@ -1,0 +1,95 @@
+---
+interface FAQ {
+  question: string;
+  answer: string;
+}
+
+interface Step {
+  name: string;
+  text: string;
+}
+
+interface BreadcrumbItem {
+  name: string;
+  item: string;
+}
+
+interface Props {
+  schema?: 'article' | 'faq' | 'howto';
+  title: string;
+  description: string;
+  publishDate?: Date;
+  updatedDate?: Date;
+  faqs?: FAQ[];
+  steps?: Step[];
+  breadcrumbs: BreadcrumbItem[];
+  inLanguage?: string;
+}
+
+const {
+  schema,
+  title,
+  description,
+  publishDate,
+  updatedDate,
+  faqs = [],
+  steps = [],
+  breadcrumbs,
+  inLanguage = 'de-DE',
+} = Astro.props;
+
+const breadcrumbLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: breadcrumbs.map((crumb, index) => ({
+    '@type': 'ListItem',
+    position: index + 1,
+    name: crumb.name,
+    item: crumb.item,
+  })),
+};
+
+let mainLd: Record<string, unknown> | null = null;
+
+if (schema === 'article') {
+  mainLd = {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: title,
+    description,
+    inLanguage,
+    ...(publishDate ? { datePublished: publishDate.toISOString() } : {}),
+    ...(publishDate || updatedDate ? { dateModified: (updatedDate ?? publishDate)?.toISOString() } : {}),
+  };
+} else if (schema === 'faq' && faqs.length > 0) {
+  mainLd = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    inLanguage,
+    mainEntity: faqs.map((faq) => ({
+      '@type': 'Question',
+      name: faq.question,
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: faq.answer,
+      },
+    })),
+  };
+} else if (schema === 'howto' && steps.length > 0) {
+  mainLd = {
+    '@context': 'https://schema.org',
+    '@type': 'HowTo',
+    name: title,
+    description,
+    inLanguage,
+    step: steps.map((step) => ({
+      '@type': 'HowToStep',
+      name: step.name,
+      text: step.text,
+    })),
+  };
+}
+---
+
+<script type="application/ld+json" set:html={JSON.stringify(breadcrumbLd)} />
+{mainLd && <script type="application/ld+json" set:html={JSON.stringify(mainLd)} />}

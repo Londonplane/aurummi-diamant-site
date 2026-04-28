@@ -1,0 +1,42 @@
+---
+interface Alternate {
+  hreflang: string;
+  href: string;
+}
+
+interface Props {
+  title: string;
+  description: string;
+  canonicalURL: string;
+  ogType?: 'website' | 'article';
+  ogLocale?: string;
+  noindex?: boolean;
+  alternates?: Alternate[];
+}
+
+const {
+  title,
+  description,
+  canonicalURL,
+  ogType = 'website',
+  ogLocale = 'de_DE',
+  noindex = false,
+  alternates = [],
+} = Astro.props;
+
+const fullTitle = title.endsWith('Aurummi') ? title : `${title} | Aurummi`;
+---
+
+<title>{fullTitle}</title>
+<meta name="description" content={description} />
+<link rel="canonical" href={canonicalURL} />
+
+{alternates.map((alternate) => <link rel="alternate" hreflang={alternate.hreflang} href={alternate.href} />)}
+
+{noindex && <meta name="robots" content="noindex, nofollow" />}
+
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:type" content={ogType} />
+<meta property="og:url" content={canonicalURL} />
+<meta property="og:locale" content={ogLocale} />

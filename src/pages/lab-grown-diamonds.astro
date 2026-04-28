@@ -1,0 +1,51 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const canonicalURL = new URL('/lab-grown-diamonds/', Astro.site).toString();
+const deCounterpart = new URL('/labordiamanten/', Astro.site).toString();
+---
+
+<Layout
+  title="Lab Grown Diamonds Germany: IGI Certified"
+  description="Learn about IGI-certified lab grown diamonds in Germany: real diamonds, CVD and HPHT production, transparent grading and wholesale inquiries."
+  canonicalURL={canonicalURL}
+  ogLocale="en_US"
+  schema="article"
+  alternates={[
+    { hreflang: 'de-DE', href: deCounterpart },
+    { hreflang: 'en', href: canonicalURL },
+    { hreflang: 'x-default', href: deCounterpart },
+  ]}
+  breadcrumbs={[
+    { name: 'Home', item: new URL('/', Astro.site).toString() },
+    { name: 'Lab Grown Diamonds', item: canonicalURL },
+  ]}
+>
+  <article class="mx-auto max-w-3xl px-4 py-12 sm:px-6">
+    <p class="text-sm font-semibold uppercase tracking-[0.2em] text-gold-600">English guide</p>
+    <h1 class="mt-3 break-words text-3xl font-bold leading-tight text-gray-950 sm:text-4xl">Lab Grown Diamonds in Germany</h1>
+    <p class="mt-5 text-lg leading-8 text-gray-600">
+      Lab grown diamonds are real diamonds: physically, chemically and optically comparable to mined diamonds.
+      Aurummi explains IGI-certified CVD and HPHT diamonds for consumers and jewellers in Germany.
+    </p>
+
+    <div class="content-flow mt-10">
+      <h2>Why choose a lab grown diamond?</h2>
+      <p>
+        Lab grown diamonds offer transparent origin, strong value and the same core diamond properties buyers expect
+        from mined diamonds. They are graded by the same 4C framework: cut, colour, clarity and carat weight.
+      </p>
+
+      <h2>IGI certification</h2>
+      <p>
+        IGI reports are widely used for lab grown diamonds. The certificate documents the stone's measurements,
+        quality grades and whether it was produced through CVD or HPHT.
+      </p>
+
+      <p>
+        Read the <a href="/labordiamanten/" class="font-medium text-gold-600 underline">German lab diamond guide</a>
+        or contact Aurummi for <a href="/labordiamanten-grosshandel/" class="font-medium text-gold-600 underline">wholesale inquiries</a>.
+      </p>
+    </div>
+  </article>
+</Layout>

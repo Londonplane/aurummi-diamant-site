@@ -1,0 +1,52 @@
+---
+import InquiryForm from '../components/InquiryForm.astro';
+import Layout from '../layouts/Layout.astro';
+
+const canonicalURL = new URL('/labordiamanten-grosshandel/', Astro.site).toString();
+const breadcrumbs = [
+  { name: 'Startseite', item: new URL('/', Astro.site).toString() },
+  { name: 'Großhandel', item: canonicalURL },
+];
+---
+
+<Layout
+  title="Labordiamanten Großhandel: IGI-zertifiziert ab Lager"
+  description="CVD- und HPHT-Labordiamanten für Juweliere und Händler in Deutschland: IGI-zertifiziert, transparent und wettbewerbsfähig."
+  canonicalURL={canonicalURL}
+  schema="article"
+  breadcrumbs={breadcrumbs}
+>
+  <section class="mx-auto grid max-w-6xl gap-10 px-4 py-12 sm:px-6 lg:grid-cols-[0.95fr_1.05fr]">
+    <div class="min-w-0">
+      <p class="text-sm font-semibold uppercase tracking-[0.2em] text-gold-600">B2B</p>
+      <h1 class="mt-3 break-words text-3xl font-bold leading-tight text-gray-950 sm:text-4xl">Labordiamanten Großhandel</h1>
+      <p class="mt-5 text-lg leading-8 text-gray-600">
+        Aurummi beliefert Juweliere und Händler in Deutschland mit IGI-zertifizierten Labordiamanten.
+        Als in Deutschland ansässiger Distributor mit direktem Zugang zur chinesischen Supply Chain
+        verbinden wir wettbewerbsfähige Preise mit verlässlicher Kommunikation.
+      </p>
+
+      <div class="mt-8 grid gap-4 border-t border-gray-200 pt-8">
+        <div>
+          <h2 class="font-semibold text-gray-950">Produktumfang</h2>
+          <p class="mt-2 text-gray-600">CVD- und HPHT-Labordiamanten als lose Steine, rund oder in Fantasieschliffen.</p>
+        </div>
+        <div>
+          <h2 class="font-semibold text-gray-950">Qualität</h2>
+          <p class="mt-2 text-gray-600">IGI-Zertifikate, transparente 4C-Daten und klare Abstimmung zu Sortiment und Budget.</p>
+        </div>
+        <div>
+          <h2 class="font-semibold text-gray-950">Lieferlogik</h2>
+          <p class="mt-2 text-gray-600">Flexible Beschaffung für Händler, die planbare Verfügbarkeit und faire Preise suchen.</p>
+        </div>
+      </div>
+    </div>
+    <div class="min-w-0 border border-gray-200 p-6">
+      <h2 class="text-2xl font-semibold text-gray-950">Anfrage stellen</h2>
+      <p class="mt-3 mb-6 text-sm leading-6 text-gray-600">
+        Teilen Sie uns Steinart, Karatbereich, Zertifikat, gewünschte Menge und Zeitrahmen mit.
+      </p>
+      <InquiryForm />
+    </div>
+  </section>
+</Layout>

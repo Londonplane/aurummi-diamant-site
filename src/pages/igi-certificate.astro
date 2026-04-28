@@ -1,0 +1,53 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const canonicalURL = new URL('/igi-certificate/', Astro.site).toString();
+const deCounterpart = new URL('/labordiamanten/igi-zertifikat/', Astro.site).toString();
+---
+
+<Layout
+  title="IGI Certificate for Lab Grown Diamonds"
+  description="What is an IGI certificate for lab grown diamonds? Learn what the report includes and why it matters when buying diamonds in Germany."
+  canonicalURL={canonicalURL}
+  ogLocale="en_US"
+  schema="article"
+  alternates={[
+    { hreflang: 'de-DE', href: deCounterpart },
+    { hreflang: 'en', href: canonicalURL },
+    { hreflang: 'x-default', href: deCounterpart },
+  ]}
+  breadcrumbs={[
+    { name: 'Home', item: new URL('/', Astro.site).toString() },
+    { name: 'IGI Certificate', item: canonicalURL },
+  ]}
+>
+  <article class="mx-auto max-w-3xl px-4 py-12 sm:px-6">
+    <p class="text-sm font-semibold uppercase tracking-[0.2em] text-gold-600">English guide</p>
+    <h1 class="mt-3 break-words text-3xl font-bold leading-tight text-gray-950 sm:text-4xl">IGI Certificate for Lab Grown Diamonds</h1>
+    <p class="mt-5 text-lg leading-8 text-gray-600">
+      The International Gemological Institute is one of the most common grading laboratories for lab grown diamonds.
+      Its reports help buyers compare stones using transparent quality data.
+    </p>
+
+    <div class="content-flow mt-10">
+      <h2>What an IGI report includes</h2>
+      <ul>
+        <li>Confirmation that the stone is laboratory-grown</li>
+        <li>Growth method, such as CVD or HPHT</li>
+        <li>Cut, colour, clarity and carat weight</li>
+        <li>Polish, symmetry, fluorescence and measurements</li>
+        <li>A unique report number for verification</li>
+      </ul>
+
+      <h2>Why it matters</h2>
+      <p>
+        A certificate makes pricing and quality easier to compare. For German buyers and jewellers, IGI documentation
+        provides confidence that the stone matches the stated specifications.
+      </p>
+
+      <p>
+        For German details, see the <a href="/labordiamanten/igi-zertifikat/" class="font-medium text-gold-600 underline">IGI-Zertifikat guide</a>.
+      </p>
+    </div>
+  </article>
+</Layout>

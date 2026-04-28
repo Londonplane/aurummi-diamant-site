@@ -1,0 +1,100 @@
+---
+import { getCollection } from 'astro:content';
+import NewsletterCTA from '../../components/NewsletterCTA.astro';
+import Layout from '../../layouts/Layout.astro';
+
+const canonicalURL = new URL('/labordiamanten/', Astro.site).toString();
+const englishCounterpart = new URL('/lab-grown-diamonds/', Astro.site).toString();
+const articles = (await getCollection('ratgeber', ({ data }) => !data.noindex)).sort(
+  (a, b) => b.data.publishDate.getTime() - a.data.publishDate.getTime(),
+);
+
+const stageLabels = {
+  top: 'Grundlagen',
+  mid: 'Vergleich und Zertifikat',
+  bottom: 'Kauf und Preis',
+};
+
+const byStage = {
+  top: articles.filter((entry) => entry.data.funnelStage === 'top'),
+  mid: articles.filter((entry) => entry.data.funnelStage === 'mid'),
+  bottom: articles.filter((entry) => entry.data.funnelStage === 'bottom'),
+};
+
+const breadcrumbs = [
+  { name: 'Startseite', item: new URL('/', Astro.site).toString() },
+  { name: 'Labordiamanten', item: canonicalURL },
+];
+---
+
+<Layout
+  title="Labordiamanten: Der vollständige Ratgeber"
+  description="Was sind Labordiamanten? Der Aurummi Ratgeber erklärt Herstellung, Zertifikate, Preise und Unterschiede zu Naturdiamanten."
+  canonicalURL={canonicalURL}
+  schema="article"
+  alternates={[
+    { hreflang: 'de-DE', href: canonicalURL },
+    { hreflang: 'en', href: englishCounterpart },
+    { hreflang: 'x-default', href: canonicalURL },
+  ]}
+  breadcrumbs={breadcrumbs}
+>
+  <article class="mx-auto max-w-4xl px-4 py-12 sm:px-6">
+    <p class="text-sm font-semibold uppercase tracking-[0.2em] text-gold-600">Ratgeber</p>
+    <h1 class="mt-3 break-words text-3xl font-bold leading-tight text-gray-950 sm:text-5xl">Labordiamanten: Der vollständige Ratgeber</h1>
+    <p class="mt-6 text-lg leading-8 text-gray-600">
+      Labordiamanten sind echte Diamanten, die nicht in Minen, sondern in kontrollierten Laborumgebungen entstehen.
+      Sie besitzen dieselbe Diamantstruktur wie Naturdiamanten und werden anhand derselben Qualitätsmerkmale bewertet.
+    </p>
+
+    <div class="content-flow mt-10">
+      <h2>Was ist ein Labordiamant?</h2>
+      <p>
+        Ein Labordiamant besteht aus kristallinem Kohlenstoff. Er entsteht entweder durch CVD
+        (Chemical Vapor Deposition) oder HPHT (High Pressure High Temperature). Beide Verfahren bilden
+        Bedingungen nach, unter denen Kohlenstoff zu Diamantstruktur wächst.
+      </p>
+
+      <h2>Warum entscheiden sich Käufer für Labordiamanten?</h2>
+      <p>
+        Viele Käufer wünschen sich einen echten Diamanten mit transparenter Herkunft und besserer Preis-Leistung.
+        Labordiamanten ermöglichen größere oder höher bewertete Steine innerhalb desselben Budgets und vermeiden
+        klassischen Diamantbergbau.
+      </p>
+
+      <h2>Welche Rolle spielt das Zertifikat?</h2>
+      <p>
+        Ein unabhängiges Zertifikat, etwa von IGI, dokumentiert Karat, Farbe, Reinheit, Schliff, Maße und
+        Herstellungsverfahren. Es ist die Grundlage für seriöse Preisvergleiche und transparente Beratung.
+      </p>
+
+      <h2>Für wen eignen sich Labordiamanten?</h2>
+      <p>
+        Labordiamanten eignen sich für Schmuckstücke, Verlobungsringe, lose Steine und B2B-Sortimente.
+        Entscheidend ist die Kombination aus Budget, gewünschter Optik, Zertifikat und Lieferbarkeit.
+      </p>
+    </div>
+
+    <section class="mt-14">
+      <p class="text-sm font-medium uppercase tracking-[0.18em] text-gold-600">Pillar & Cluster</p>
+      <h2 class="mt-2 text-2xl font-semibold text-gray-950">Alle Ratgeber-Artikel</h2>
+      {(['top', 'mid', 'bottom'] as const).map((stage) =>
+        byStage[stage].length > 0 && (
+          <div class="mt-8">
+            <h3 class="text-lg font-semibold text-gray-950">{stageLabels[stage]}</h3>
+            <div class="mt-3 grid gap-4 sm:grid-cols-2">
+              {byStage[stage].map((entry) => (
+                <a href={`/labordiamanten/${entry.id}/`} class="block border border-gray-200 p-5 transition-colors hover:border-gold-500">
+                  <p class="font-medium text-gray-950">{entry.data.title}</p>
+                  <p class="mt-2 text-sm leading-6 text-gray-600">{entry.data.description}</p>
+                </a>
+              ))}
+            </div>
+          </div>
+        )
+      )}
+    </section>
+
+    <NewsletterCTA />
+  </article>
+</Layout>

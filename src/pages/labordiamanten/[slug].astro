@@ -1,0 +1,61 @@
+---
+import { getCollection, render } from 'astro:content';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import NewsletterCTA from '../../components/NewsletterCTA.astro';
+import PillarLink from '../../components/PillarLink.astro';
+import RelatedArticles from '../../components/RelatedArticles.astro';
+import Layout from '../../layouts/Layout.astro';
+
+export async function getStaticPaths() {
+  const articles = await getCollection('ratgeber', ({ data }) => !data.noindex);
+
+  return articles.map((entry) => ({
+    params: { slug: entry.id },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+const canonicalURL = new URL(`/labordiamanten/${entry.id}/`, Astro.site).toString();
+
+const breadcrumbs = [
+  { name: 'Startseite', item: new URL('/', Astro.site).toString() },
+  { name: 'Labordiamanten', item: new URL('/labordiamanten/', Astro.site).toString() },
+  { name: entry.data.title, item: canonicalURL },
+];
+
+const breadcrumbItems = [
+  { name: 'Startseite', href: '/' },
+  { name: 'Labordiamanten', href: '/labordiamanten/' },
+  { name: entry.data.title, href: `/labordiamanten/${entry.id}/` },
+];
+---
+
+<Layout
+  title={entry.data.title}
+  description={entry.data.description}
+  canonicalURL={canonicalURL}
+  ogType="article"
+  schema={entry.data.schema}
+  publishDate={entry.data.publishDate}
+  updatedDate={entry.data.updatedDate}
+  faqs={entry.data.faqs}
+  steps={entry.data.steps}
+  breadcrumbs={breadcrumbs}
+>
+  <article class="mx-auto max-w-3xl px-4 py-10 sm:px-6">
+    <Breadcrumb items={breadcrumbItems} />
+    <p class="text-sm font-medium uppercase tracking-[0.18em] text-gold-600">{entry.data.targetKeyword}</p>
+    <h1 class="mt-3 break-words text-3xl font-bold leading-tight text-gray-950 sm:text-4xl">{entry.data.title}</h1>
+    <p class="mt-4 text-sm text-gray-500">
+      Veröffentlicht am {entry.data.publishDate.toLocaleDateString('de-DE')}
+    </p>
+    <div class="content-flow mt-10">
+      <Content />
+    </div>
+    <PillarLink />
+    <RelatedArticles slugs={entry.data.relatedArticles} />
+    <NewsletterCTA />
+  </article>
+</Layout>
