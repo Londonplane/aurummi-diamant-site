@@ -59,4 +59,27 @@
   .content-flow ol {
     list-style: decimal;
   }
+
+  .content-flow table {
+    display: block;
+    width: 100%;
+    overflow-x: auto;
+    border-collapse: collapse;
+    font-size: 0.95rem;
+  }
+
+  .content-flow th,
+  .content-flow td {
+    min-width: 12rem;
+    border: 1px solid #e5e7eb;
+    padding: 0.75rem;
+    text-align: left;
+    vertical-align: top;
+  }
+
+  .content-flow th {
+    background: #f9fafb;
+    color: #111827;
+    font-weight: 700;
+  }
 }
