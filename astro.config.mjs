@@ -4,8 +4,10 @@ import mdx from '@astrojs/mdx';
 import sitemap from '@astrojs/sitemap';
 import tailwindcss from '@tailwindcss/vite';
 
+const site = process.env.SITE_URL || 'https://aurummi-diamant-site.pages.dev';
+
 export default defineConfig({
-  site: 'https://aurummi-diamant.de',
+  site,
   output: 'static',
   integrations: [
     mdx(),

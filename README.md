@@ -35,10 +35,12 @@ Run these from this directory:
 
 Deploy on Cloudflare Pages with:
 
-- Project root: `verdant-velocity`
+- Project root: `/`
 - Build command: `npm run build`
 - Output directory: `dist`
-- Pages project name: `aurummi-diamant`
+- Pages project name: `aurummi-diamant-site`
 - Deploy command: leave empty for Git-connected Pages deployments
+- Environment variable now: leave `SITE_URL` unset to use `https://aurummi-diamant-site.pages.dev`
+- Environment variable after buying the domain: set `SITE_URL=https://aurummi-diamant.de`
 
 Full deployment notes live in `../docs/deployment-cloudflare-pages.md`.

@@ -1,3 +1,0 @@
-User-agent: *
-Allow: /
-Sitemap: https://aurummi-diamant.de/sitemap-index.xml
